@@ -1,4 +1,5 @@
 <template>
+<h1>Hello</h1>
   <courant-provider
     room="hello-world"
     username="Reed"

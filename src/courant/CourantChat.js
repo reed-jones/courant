@@ -1,6 +1,5 @@
-<script>
 import { courantSymbol } from "./CourantConnector";
-import { provide, inject } from "vue";
+import { inject } from "vue";
 export default {
   render({ messages, sendMessage, $slots }) {
     return $slots.default({
@@ -18,4 +17,3 @@ export default {
     };
   },
 };
-</script>

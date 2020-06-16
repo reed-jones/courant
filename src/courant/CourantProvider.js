@@ -1,7 +1,6 @@
-<script>
 import { createCourant, courantSymbol } from "./CourantConnector";
-import { provide, inject, reactive } from "vue";
-import { options } from './index'
+import { provide } from "vue";
+import { options } from './main'
 
 export default {
   props: {
@@ -44,4 +43,3 @@ export default {
     provide(courantSymbol, courant);
   },
 };
-</script>

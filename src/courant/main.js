@@ -1,7 +1,7 @@
-import CourantProvider from "./CourantProvider.vue";
-import CourantChat from "./CourantChat.vue";
-import CourantStream from "./CourantStream.vue";
-import CourantControls from "./CourantControls.vue";
+import CourantProvider from "./CourantProvider.js";
+import CourantChat from "./CourantChat.js";
+import CourantStream from "./CourantStream.js";
+import CourantControls from "./CourantControls.js";
 
 import { createCourant, courantSymbol } from "./CourantConnector";
 

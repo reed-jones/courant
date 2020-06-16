@@ -2,8 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import "./index.css";
 
-import Courant from "./courant";
-
+import Courant from "courant";
 const app = createApp(App);
 
 app.use(Courant, {
