@@ -10,8 +10,14 @@ export default {
     const { streams } = inject(courantSymbol);
 
     return {
-      local: streams.local,
-      remote: streams.remote,
+      local: {
+        stream: streams.local,
+        user: { name: 'You' }
+      },
+      remote: {
+        stream: streams.remote,
+        user: { name: 'Reed' }
+      }
     };
   },
 };

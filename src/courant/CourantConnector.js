@@ -9,6 +9,13 @@ const logger = new Proxy(console.log, {
 /** @param {Symbol} courantSymbol provide/inject symbol */
 export const courantSymbol = Symbol("courant");
 
+
+// https://github.com/webrtc/samples/blob/gh-pages/src/content/getusermedia/resolution/js/main.js
+const resolution720P = {
+  video: {width: {exact: 1280}, height: {exact: 720}},
+  audio: true
+};
+
 /**
  * Retrieves the users media stream
  *
@@ -20,7 +27,7 @@ export const courantSymbol = Symbol("courant");
 function getMediaStream(
   type = "camera",
   options = type === "camera"
-    ? { audio: true, video: true }
+    ? resolution720P
     : { audio: false, video: true }
 ) {
   const mediaRequest = type === "camera" ? "getUserMedia" : "getDisplayMedia";
@@ -81,9 +88,14 @@ export function createCourant({
 
   const messageMap = new Map();
   const messages = ref([]);
+  let messageCallback = () => { }
+  function setMessageCallback(callback) {
+    messageCallback = callback
+  }
   function appendMessage(msg) {
+    messageCallback(msg)
     messageMap.set(msg.id, msg);
-    messages.value = messageMap.values();
+    messages.value = [...messageMap.values()];
   }
 
   function parseMessage(message) {
@@ -103,9 +115,12 @@ export function createCourant({
   }
 
   function sendMessage(message) {
+
     const msg = packageMessage(message);
     appendMessage(msg);
-
+    if (!dataChannel) {
+      return false
+    }
     dataChannel.send(`courant-chat://${JSON.stringify(msg)}`);
   }
 
@@ -390,8 +405,9 @@ export function createCourant({
 
     // Messages
     messages: {
-      allMessages: messages,
+      all: messages,
       sendMessage: sendMessage,
+      setMessageCallback: setMessageCallback
     },
 
     // Controls

@@ -34,7 +34,7 @@ const initializeCourantSocketServer = function (
       socket.on("courant:join", function (room) {
         const clients = io.sockets.adapter.rooms[room];
         if (clients && this.id in clients.sockets) {
-          console.log("joining");
+          logger(`A client rejoined a room`, room);
           socket.join(room);
 
           socket.broadcast.to(room).emit("courant:initiate", room);

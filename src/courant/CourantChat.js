@@ -8,11 +8,11 @@ export default {
     });
   },
 
-  setup() {
+  setup(props, { emit }) {
     const { messages } = inject(courantSymbol);
-
+    messages.setMessageCallback(msg => emit('new-message', msg))
     return {
-      messages: messages.allMessages,
+      messages: messages.all,
       sendMessage: messages.sendMessage,
     };
   },
