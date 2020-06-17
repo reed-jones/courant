@@ -4,11 +4,9 @@
       <courant-stream v-slot="{ local, remote }">
         <div class="absolute bottom-0 left-0 my-2 mx-8 z-50 hidden md:block">
           <video
-            class="h-48 rounded-lg shadow-2xl object-cover"
+            class="h-48 rounded-lg shadow-2xl object-cover bg-gray-800"
             :src-object.prop.camel="swapped ? remote.stream : local.stream"
-            autoplay
-            muted
-            playsinline
+            autoplay muted playsinline
           />
           <p class="text-center text-white">You</p>
         </div>
@@ -19,8 +17,7 @@
           <video
             class="w-full h-full rounded-lg shadow-2xl m-0 p-0 object-cover"
             :src-object.prop.camel="swapped ? local.stream : remote.stream"
-            autoplay
-            playsinline
+            autoplay playsinline
           />
         </div>
       </courant-stream>
@@ -77,8 +74,10 @@
           </transition-group>
 
           <form @submit.prevent="send(sendMessage)" class="px-2 flex items-stretch">
-            <input type="text" v-model="currentMessage" class="rounded-lg opacity-75 px-2 mr-2"/>
-            <button class="bg-gray-500 p-2 rounded-lg text-white text-sm h-full">Send</button>
+            <input type="text" v-model="currentMessage" class="rounded-lg opacity-25 focus:opacity-75 focus:outline-none px-2 mr-2 bg-gray-400"/>
+            <button class="bg-gray-400 bg-opacity-50 p-2 rounded-lg text-gray-800 text-sm h-full hover:bg-opacity-75 focus:outline-none focus:bg-opacity-75">
+              <svg class="w-6"  fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path></svg>
+            </button>
           </form>
           <p class="p-2 text-gray-600 absolute" v-if="messages.length > 0">History: {{ messages.length }} message</p>
         </div>
@@ -105,6 +104,9 @@ export default {
 
   methods: {
     send(callback) {
+      if (!this.currentMessage) {
+        return
+      }
       callback(this.currentMessage)
       this.currentMessage = ''
     },
