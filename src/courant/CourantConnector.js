@@ -123,28 +123,26 @@ export function createCourant({
     }
   }
 
-  function disconnect() {
+  function disconnect(emitted = false) {
+    console.log({ emitted })
     logger("Disconnecting");
 
     // disable all tracks
-    [localStream, remoteStream]
-      .filter((s) => s.value)
-      .forEach((stream) => {
-        stream.value.getTracks().forEach((track) => track.stop());
-      });
+    remoteStream.value?.getTracks().forEach((track) => track.stop());
 
     // clear handles
-    setLocalStream(null);
     setRemoteStream(null);
-    setConnected(false);
 
     // leave room
-    socket.emit("courant:leave", room);
+    if (emitted !== true) {
+      setConnected(false);
+      socket.emit("courant:leave", room);
+    }
     socket.off("courant:token");
 
     setInitiate(false);
 
-    peerConnection.close();
+    peerConnection?.close();
 
     peerConnection = null;
     dataChannel = null;
@@ -152,12 +150,18 @@ export function createCourant({
   }
 
   /** Primary Socket Callbacks */
-  socket.on("courant:answer", onAnswer);
-  socket.on("courant:candidate", onCandidate);
-  socket.on("courant:full", onFull);
-  socket.on("courant:offer", onOffer);
-  socket.on("courant:ready", onReady);
   socket.on("courant:initiate", onInitiate);
+  socket.on("courant:ready", onReady);
+  socket.on("courant:candidate", onCandidate);
+  socket.on("courant:offer", onOffer);
+  socket.on("courant:answer", onAnswer);
+  socket.on("courant:full", onFull);
+  socket.on("courant:end", onEnd);
+
+  function onEnd() {
+    console.log("Disconglkdfjgkldfjgljdflgkjdfklnecting")
+    disconnect(true);
+  }
 
   function onAnswer(answer) {
     const rtcAnswer = new RTCSessionDescription(JSON.parse(answer));
@@ -170,7 +174,7 @@ export function createCourant({
 
   function onCandidate(candidate) {
     const rtcCandidate = new RTCIceCandidate(JSON.parse(candidate));
-    peerConnection.addIceCandidate(rtcCandidate);
+    peerConnection?.addIceCandidate(rtcCandidate);
   }
 
   function onFull() {
@@ -194,10 +198,10 @@ export function createCourant({
   }
 
   function createOffer(token) {
-    logger("Initializing Peer Connection");
+    logger("Initializing Peer Connection (createOffer)");
     peerConnection = initializePeerConnection(token, localStream.value, socket);
 
-    logger("Initializing Data Connection");
+    logger("Initializing Data Connection (createOffer)");
     dataChannel = initializeDataChannel(peerConnection);
 
     logger("Creating Offer");
@@ -215,10 +219,10 @@ export function createCourant({
   }
 
   function createAnswer(token, offer) {
-    logger("Initializing Peer Connection");
+    logger("Initializing Peer Connection (createAnswer)");
     peerConnection = initializePeerConnection(token, localStream.value, socket);
 
-    logger("Initializing Data Connection");
+    logger("Initializing Data Connection (createAnswer)");
     dataChannel = initializeDataChannel(peerConnection);
 
     logger("Creating Answer");

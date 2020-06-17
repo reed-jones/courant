@@ -9,7 +9,7 @@
     "dev": "vite",
     "build": "vite build",
     "prod": "rollup -c",
-    "socket-server": "node -r-esm exampleExpressServer.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "courant": "./",
@@ -28,5 +28,5 @@
     "socket.io": "^2.3.0",
     "twilio": "^3.46.0",
     "vite": "^0.20.0"
-  },
+  }
 }

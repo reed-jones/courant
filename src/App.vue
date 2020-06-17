@@ -1,11 +1,13 @@
 <template>
-<h1>Hello</h1>
   <courant-provider
     room="hello-world"
     username="Reed"
   >
-    <courant-stream v-slot="{ local, remote }">
+    <courant-stream v-slot="{ local }">
       <video :src-object.prop.camel="local" autoplay muted playsinline />
+    </courant-stream>
+
+    <courant-stream v-slot="{ remote }">
       <video :src-object.prop.camel="remote" autoplay playsinline />
     </courant-stream>
 
@@ -14,7 +16,7 @@
     >
       <div>
         <button @click="audio.toggle">
-          {{ video.isActive ? "Disable" : "Enable" }} Audio
+          {{ audio.isActive ? "Disable" : "Enable" }} Audio
         </button>
         <button @click="video.toggle">
           {{ video.isActive ? "Disable" : "Enable" }} Video
