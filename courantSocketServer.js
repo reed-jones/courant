@@ -14,7 +14,7 @@ function fmt(msg, room) {
 
 module.exports.logger = logger;
 
-module.exports.initializeCourantSocketServer = function (
+const initializeCourantSocketServer = function (
   { server },
   { accountSid, authToken }
 ) {
