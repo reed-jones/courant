@@ -112,7 +112,7 @@ export default {
       if (!this.currentMessage) {
         return
       }
-      callback(this.currentMessage)
+    callback(this.currentMessage)
       this.currentMessage = ''
     },
 

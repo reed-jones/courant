@@ -3,7 +3,6 @@ const dotenv = require("dotenv");
 const { CourantVitePlugin, logger } = require("./courantSocketServer");
 const chalk = require("chalk");
 
-
 dotenv.config();
 const { TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, APP_PORT } = process.env;
 

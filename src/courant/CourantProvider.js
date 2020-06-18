@@ -1,12 +1,12 @@
 import { createCourant, courantSymbol } from "./CourantConnector";
 import { provide } from "vue";
-import { options } from './options'
+import { getOptions } from './options'
 
 export default {
   props: {
     room: {
       type: String,
-      required: true
+      default: 'public'
     },
 
     username: {
@@ -30,6 +30,8 @@ export default {
   },
 
   setup(props) {
+    const options = getOptions();
+
     const courant = createCourant({
       room: props.room,
       username: props.username,
