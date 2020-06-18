@@ -12,6 +12,10 @@ export default [
       name: "courant",
       file: pkg.browser,
       format: "umd",
+      exports: 'named',
+      globals: {
+        'vue': 'vue'
+      }
     },
     plugins: [
       resolve(), // so Rollup can find `ms`
@@ -30,8 +34,8 @@ export default [
     input: "src/courant/main.js",
     external: ["vue"],
     output: [
-      { file: pkg.main, format: "cjs" },
-      { file: pkg.module, format: "es" },
+      { file: pkg.main, format: "cjs", exports: 'named' },
+      { file: pkg.module, format: "es", exports: 'named' },
     ],
     plugins: [
       resolve(), // so Rollup can find `ms`

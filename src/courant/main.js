@@ -4,12 +4,12 @@ import CourantStream from "./CourantStream.js";
 import CourantControls from "./CourantControls.js";
 
 import { createCourant, courantSymbol } from "./CourantConnector";
-
-export let options = {}
+import { setOptions } from './options'
 
 export default {
   install(app, _options = {}) {
-    options = _options
+
+    setOptions(_options)
 
     // mix options into CourantProvider
     app.component("CourantProvider", CourantProvider);

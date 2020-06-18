@@ -1,22 +1,27 @@
 {
   "name": "courant",
   "description": "Renderless Vue3 Components, to get up and running with WebRTC fast 🚀",
+  "license": "ISC",
   "version": "0.1.0",
   "main": "dist/courant.cjs.js",
   "module": "dist/courant.esm.js",
   "browser": "dist/courant.umd.js",
   "scripts": {
-    "dev": "vite",
+    "dev": "node server-dev.js",
+    "//dev": "vite",
     "build": "vite build",
-    "prod": "rollup -c",
-    "start": "node server.js"
+    "prod": "rollup -c"
   },
   "dependencies": {
     "courant": "./",
     "tailwindcss": "^1.4.6",
-    "vue": "^3.0.0-beta.14"
+    "vue": "^3.0.0-beta.14",
+    "vue-router": "^4.0.0-alpha.12"
   },
   "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "@rollup/plugin-babel": "^5.0.3",
     "@rollup/plugin-commonjs": "^13.0.0",
     "@rollup/plugin-node-resolve": "^8.0.1",
     "@vue/compiler-sfc": "^3.0.0-beta.14",

@@ -1,6 +1,6 @@
 import { createCourant, courantSymbol } from "./CourantConnector";
 import { provide } from "vue";
-import { options } from './main'
+import { options } from './options'
 
 export default {
   props: {
